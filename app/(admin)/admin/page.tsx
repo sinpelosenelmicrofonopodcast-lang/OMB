@@ -3,6 +3,8 @@ import { StatsGrid } from "@/components/admin/stats-grid";
 import { getAdminDashboardStats } from "@/lib/db/admin";
 import { getInventory } from "@/lib/db/vehicles";
 import { formatCurrency } from "@/lib/utils";
+import { getLocale, toIntlLocale } from "@/lib/i18n/locale";
+import { getDictionary, translateStatus, translateUiMessage } from "@/lib/i18n/messages";
 
 type PageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -15,6 +17,8 @@ function first(value: string | string[] | undefined) {
 
 export default async function AdminDashboardPage({ searchParams }: PageProps) {
   const resolvedSearchParams = await searchParams;
+  const locale = await getLocale();
+  const t = getDictionary(locale);
   const [stats, inventoryResult] = await Promise.all([
     getAdminDashboardStats(),
     getInventory({ includeUnpublished: true, sort: "newest" })
@@ -26,16 +30,18 @@ export default async function AdminDashboardPage({ searchParams }: PageProps) {
   return (
     <div className="space-y-6">
       {message ? (
-        <p className="rounded-2xl border border-gold/30 bg-gold/10 px-4 py-2 text-sm text-gold/90">{message}</p>
+        <p className="rounded-2xl border border-gold/30 bg-gold/10 px-4 py-2 text-sm text-gold/90">
+          {translateUiMessage(message, locale)}
+        </p>
       ) : null}
 
-      <StatsGrid {...stats} />
+      <StatsGrid {...stats} locale={locale} />
 
       <div className="panel">
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="font-heading text-3xl text-softWhite">Recent Inventory Updates</h2>
+          <h2 className="font-heading text-3xl text-softWhite">{t.admin.dashboard.recentUpdates}</h2>
           <Link href="/admin/inventory" className="text-sm text-gold hover:underline">
-            Manage Inventory
+            {t.admin.dashboard.manageInventory}
           </Link>
         </div>
 
@@ -43,10 +49,10 @@ export default async function AdminDashboardPage({ searchParams }: PageProps) {
           <table className="w-full text-left text-sm">
             <thead className="text-softWhite/60">
               <tr className="border-b border-white/10">
-                <th className="py-2">Title</th>
-                <th className="py-2">Price</th>
-                <th className="py-2">Status</th>
-                <th className="py-2">Updated</th>
+                <th className="py-2">{t.admin.dashboard.title}</th>
+                <th className="py-2">{t.admin.dashboard.price}</th>
+                <th className="py-2">{t.admin.dashboard.status}</th>
+                <th className="py-2">{t.admin.dashboard.updated}</th>
               </tr>
             </thead>
             <tbody>
@@ -57,16 +63,16 @@ export default async function AdminDashboardPage({ searchParams }: PageProps) {
                       {vehicle.title}
                     </Link>
                   </td>
-                  <td className="py-3">{formatCurrency(vehicle.price)}</td>
-                  <td className="py-3 capitalize">{vehicle.status}</td>
-                  <td className="py-3">{new Date(vehicle.updated_at).toLocaleDateString()}</td>
+                  <td className="py-3">{formatCurrency(vehicle.price, locale)}</td>
+                  <td className="py-3 capitalize">{translateStatus(vehicle.status, locale)}</td>
+                  <td className="py-3">{new Date(vehicle.updated_at).toLocaleDateString(toIntlLocale(locale))}</td>
                 </tr>
               ))}
             </tbody>
           </table>
 
           {latestVehicles.length === 0 ? (
-            <p className="py-4 text-sm text-softWhite/60">No vehicles yet. Add your first listing.</p>
+            <p className="py-4 text-sm text-softWhite/60">{t.admin.dashboard.noVehicles}</p>
           ) : null}
         </div>
       </div>

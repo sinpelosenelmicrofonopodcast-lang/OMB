@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import { VehicleForm } from "@/components/admin/vehicle-form";
 import { updateVehicleAction } from "@/actions/vehicle-actions";
 import { getVehicleById } from "@/lib/db/vehicles";
+import { getLocale } from "@/lib/i18n/locale";
+import { getDictionary } from "@/lib/i18n/messages";
 
 type PageProps = {
   params: Promise<{
@@ -17,6 +19,8 @@ function first(value: string | string[] | undefined) {
 
 export default async function EditVehiclePage({ params, searchParams }: PageProps) {
   const [{ id }, resolvedSearchParams] = await Promise.all([params, searchParams]);
+  const locale = await getLocale();
+  const t = getDictionary(locale);
   const vehicle = await getVehicleById(id);
   if (!vehicle) notFound();
 
@@ -24,11 +28,12 @@ export default async function EditVehiclePage({ params, searchParams }: PageProp
 
   return (
     <VehicleForm
-      title={`Edit Vehicle: ${vehicle.title}`}
-      submitLabel="Save Changes"
+      title={`${t.admin.vehicleForm.editPrefix} ${vehicle.title}`}
+      submitLabel={t.admin.vehicleForm.saveChanges}
       action={updateVehicleAction}
       vehicle={vehicle}
       message={message}
+      locale={locale}
     />
   );
 }

@@ -1,18 +1,22 @@
 import { Card } from "@/components/ui/card";
+import type { Locale } from "@/lib/i18n/locale";
+import { getDictionary } from "@/lib/i18n/messages";
 
 type StatsGridProps = {
   totalVehicles: number;
   availableVehicles: number;
   soldVehicles: number;
   recentLeads: number;
+  locale: Locale;
 };
 
-export function StatsGrid({ totalVehicles, availableVehicles, soldVehicles, recentLeads }: StatsGridProps) {
+export function StatsGrid({ totalVehicles, availableVehicles, soldVehicles, recentLeads, locale }: StatsGridProps) {
+  const t = getDictionary(locale);
   const stats = [
-    { label: "Total Vehicles", value: totalVehicles },
-    { label: "Available", value: availableVehicles },
-    { label: "Sold", value: soldVehicles },
-    { label: "Leads (7d)", value: recentLeads }
+    { label: t.admin.stats.totalVehicles, value: totalVehicles },
+    { label: t.admin.stats.available, value: availableVehicles },
+    { label: t.admin.stats.sold, value: soldVehicles },
+    { label: t.admin.stats.leads7d, value: recentLeads }
   ];
 
   return (

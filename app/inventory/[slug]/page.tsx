@@ -5,6 +5,8 @@ import { Badge } from "@/components/ui/badge";
 import { getPublicSiteSettings } from "@/lib/db/site-settings";
 import { getVehicleBySlug } from "@/lib/db/vehicles";
 import { formatCurrency, formatMileage } from "@/lib/utils";
+import { getLocale } from "@/lib/i18n/locale";
+import { getDictionary, translateStatus } from "@/lib/i18n/messages";
 
 type PageProps = {
   params: Promise<{
@@ -14,7 +16,9 @@ type PageProps = {
 
 export default async function VehicleDetailPage({ params }: PageProps) {
   const { slug } = await params;
-  const [vehicle, settings] = await Promise.all([getVehicleBySlug(slug), getPublicSiteSettings()]);
+  const locale = await getLocale();
+  const t = getDictionary(locale);
+  const [vehicle, settings] = await Promise.all([getVehicleBySlug(slug), getPublicSiteSettings(locale)]);
 
   if (!vehicle) notFound();
 
@@ -25,13 +29,13 @@ export default async function VehicleDetailPage({ params }: PageProps) {
     <section className="mx-auto max-w-7xl px-4 py-14 md:px-8">
       <div className="mb-6 flex flex-wrap items-center gap-3">
         <Badge tone={vehicle.status === "available" ? "success" : vehicle.status === "pending" ? "warning" : "muted"}>
-          {vehicle.status.toUpperCase()}
+          {translateStatus(vehicle.status, locale).toUpperCase()}
         </Badge>
-        {vehicle.featured ? <Badge>FEATURED</Badge> : null}
+        {vehicle.featured ? <Badge>{t.vehicleDetail.featured}</Badge> : null}
       </div>
 
       <h1 className="font-heading text-4xl text-softWhite md:text-6xl">{vehicle.title}</h1>
-      <p className="mt-4 text-xl text-gold">{formatCurrency(vehicle.price)}</p>
+      <p className="mt-4 text-xl text-gold">{formatCurrency(vehicle.price, locale)}</p>
 
       <div className="mt-10 grid gap-8 lg:grid-cols-[1.5fr_1fr]">
         <div className="space-y-4">
@@ -59,24 +63,44 @@ export default async function VehicleDetailPage({ params }: PageProps) {
 
         <div className="panel space-y-6">
           <div>
-            <p className="text-xs uppercase tracking-[0.2em] text-softWhite/55">Overview</p>
+            <p className="text-xs uppercase tracking-[0.2em] text-softWhite/55">{t.vehicleDetail.overview}</p>
             <div className="mt-3 grid grid-cols-2 gap-y-3 text-sm text-softWhite/80">
-              <span>Year: {vehicle.year ?? "N/A"}</span>
-              <span>Make: {vehicle.make ?? "N/A"}</span>
-              <span>Model: {vehicle.model ?? "N/A"}</span>
-              <span>Trim: {vehicle.trim ?? "N/A"}</span>
-              <span>Mileage: {formatMileage(vehicle.mileage)}</span>
-              <span>VIN: {vehicle.vin ?? "N/A"}</span>
-              <span>Drivetrain: {vehicle.drivetrain ?? "N/A"}</span>
-              <span>Transmission: {vehicle.transmission ?? "N/A"}</span>
-              <span>Fuel Type: {vehicle.fuel_type ?? "N/A"}</span>
-              <span>Color: {vehicle.color ?? "N/A"}</span>
+              <span>
+                {t.common.year}: {vehicle.year ?? t.common.na}
+              </span>
+              <span>
+                {t.vehicleDetail.make}: {vehicle.make ?? t.common.na}
+              </span>
+              <span>
+                {t.vehicleDetail.model}: {vehicle.model ?? t.common.na}
+              </span>
+              <span>
+                {t.vehicleDetail.trim}: {vehicle.trim ?? t.common.na}
+              </span>
+              <span>
+                {t.common.mileage}: {formatMileage(vehicle.mileage, locale)}
+              </span>
+              <span>
+                {t.vehicleDetail.vin}: {vehicle.vin ?? t.common.na}
+              </span>
+              <span>
+                {t.vehicleDetail.drivetrain}: {vehicle.drivetrain ?? t.common.na}
+              </span>
+              <span>
+                {t.vehicleDetail.transmission}: {vehicle.transmission ?? t.common.na}
+              </span>
+              <span>
+                {t.vehicleDetail.fuelType}: {vehicle.fuel_type ?? t.common.na}
+              </span>
+              <span>
+                {t.vehicleDetail.color}: {vehicle.color ?? t.common.na}
+              </span>
             </div>
           </div>
 
           {vehicle.highlights.length > 0 ? (
             <div>
-              <p className="text-xs uppercase tracking-[0.2em] text-softWhite/55">Highlights</p>
+              <p className="text-xs uppercase tracking-[0.2em] text-softWhite/55">{t.vehicleDetail.highlights}</p>
               <ul className="mt-3 space-y-2 text-sm text-softWhite/80">
                 {vehicle.highlights.map((item: string) => (
                   <li key={item}>• {item}</li>
@@ -90,13 +114,13 @@ export default async function VehicleDetailPage({ params }: PageProps) {
               href={`tel:${settings.phone?.replace(/[^\d+]/g, "")}`}
               className="rounded-2xl bg-gradient-to-r from-gold to-[#ff9a47] px-5 py-2 text-sm font-semibold text-matteBlack hover:from-cyan hover:to-gold"
             >
-              Call Now
+              {t.vehicleDetail.callNow}
             </a>
             <Link
               href={`/contact?vehicleId=${vehicle.id}`}
               className="rounded-2xl border border-white/20 px-5 py-2 text-sm text-softWhite hover:border-gold/60 hover:text-gold"
             >
-              Contact About This Vehicle
+              {t.vehicleDetail.contactVehicle}
             </Link>
           </div>
         </div>
@@ -104,14 +128,14 @@ export default async function VehicleDetailPage({ params }: PageProps) {
 
       {vehicle.description ? (
         <div className="panel mt-10">
-          <p className="text-xs uppercase tracking-[0.2em] text-softWhite/55">Description</p>
+          <p className="text-xs uppercase tracking-[0.2em] text-softWhite/55">{t.vehicleDetail.description}</p>
           <p className="mt-3 whitespace-pre-line text-sm leading-relaxed text-softWhite/80">{vehicle.description}</p>
         </div>
       ) : null}
 
       {Object.keys(specs).length > 0 ? (
         <div className="panel mt-8">
-          <p className="text-xs uppercase tracking-[0.2em] text-softWhite/55">Additional Specs</p>
+          <p className="text-xs uppercase tracking-[0.2em] text-softWhite/55">{t.vehicleDetail.additionalSpecs}</p>
           <div className="mt-3 grid gap-2 text-sm text-softWhite/80 md:grid-cols-2">
             {Object.entries(specs).map(([key, value]) => (
               <p key={key}>

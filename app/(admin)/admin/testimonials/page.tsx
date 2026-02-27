@@ -6,6 +6,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { getAdminTestimonials } from "@/lib/db/testimonials";
+import { getLocale } from "@/lib/i18n/locale";
+import { getDictionary, translateUiMessage } from "@/lib/i18n/messages";
 
 type PageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -18,28 +20,32 @@ function first(value: string | string[] | undefined) {
 
 export default async function AdminTestimonialsPage({ searchParams }: PageProps) {
   const resolvedSearchParams = await searchParams;
+  const locale = await getLocale();
+  const t = getDictionary(locale);
   const testimonials = await getAdminTestimonials();
   const message = first(resolvedSearchParams.message);
 
   return (
     <div className="space-y-6">
-      <h1 className="font-heading text-4xl text-softWhite">Testimonials</h1>
+      <h1 className="font-heading text-4xl text-softWhite">{t.admin.testimonials.title}</h1>
       {message ? (
-        <p className="rounded-xl border border-gold/30 bg-gold/10 px-4 py-2 text-sm text-gold/90">{message}</p>
+        <p className="rounded-xl border border-gold/30 bg-gold/10 px-4 py-2 text-sm text-gold/90">
+          {translateUiMessage(message, locale)}
+        </p>
       ) : null}
 
       <form action={createTestimonialAction} className="panel space-y-4">
-        <h2 className="font-heading text-3xl text-softWhite">Add Testimonial</h2>
+        <h2 className="font-heading text-3xl text-softWhite">{t.admin.testimonials.add}</h2>
         <div className="grid gap-4 md:grid-cols-2">
           <div>
             <label htmlFor="name" className="mb-1 block text-xs uppercase tracking-[0.2em] text-softWhite/60">
-              Name
+              {t.admin.testimonials.name}
             </label>
             <Input id="name" name="name" required />
           </div>
           <div>
             <label htmlFor="rating" className="mb-1 block text-xs uppercase tracking-[0.2em] text-softWhite/60">
-              Rating (1-5)
+              {t.admin.testimonials.rating}
             </label>
             <Input id="rating" name="rating" type="number" min={1} max={5} defaultValue={5} />
           </div>
@@ -47,17 +53,17 @@ export default async function AdminTestimonialsPage({ searchParams }: PageProps)
 
         <div>
           <label htmlFor="quote" className="mb-1 block text-xs uppercase tracking-[0.2em] text-softWhite/60">
-            Quote
+            {t.admin.testimonials.quote}
           </label>
           <Textarea id="quote" name="quote" rows={4} required />
         </div>
 
         <label className="inline-flex items-center gap-2 text-sm text-softWhite/80">
-          <input type="checkbox" name="published" defaultChecked /> Published
+          <input type="checkbox" name="published" defaultChecked /> {t.admin.testimonials.published}
         </label>
 
         <button className="rounded-2xl bg-gradient-to-r from-gold to-[#ff9a47] px-5 py-2 text-sm font-semibold text-matteBlack hover:from-cyan hover:to-gold">
-          Create
+          {t.admin.testimonials.create}
         </button>
       </form>
 
@@ -67,41 +73,47 @@ export default async function AdminTestimonialsPage({ searchParams }: PageProps)
             <input type="hidden" name="id" value={item.id} />
             <div className="grid gap-4 md:grid-cols-2">
               <div>
-                <label className="mb-1 block text-xs uppercase tracking-[0.2em] text-softWhite/60">Name</label>
+                <label className="mb-1 block text-xs uppercase tracking-[0.2em] text-softWhite/60">
+                  {t.admin.testimonials.name}
+                </label>
                 <Input name="name" defaultValue={item.name} required />
               </div>
               <div>
-                <label className="mb-1 block text-xs uppercase tracking-[0.2em] text-softWhite/60">Rating</label>
+                <label className="mb-1 block text-xs uppercase tracking-[0.2em] text-softWhite/60">
+                  {t.admin.testimonials.rating}
+                </label>
                 <Input name="rating" type="number" min={1} max={5} defaultValue={item.rating} />
               </div>
             </div>
 
             <div>
-              <label className="mb-1 block text-xs uppercase tracking-[0.2em] text-softWhite/60">Quote</label>
+              <label className="mb-1 block text-xs uppercase tracking-[0.2em] text-softWhite/60">
+                {t.admin.testimonials.quote}
+              </label>
               <Textarea name="quote" rows={3} defaultValue={item.quote} required />
             </div>
 
             <div className="flex flex-wrap items-center justify-between gap-3">
               <label className="inline-flex items-center gap-2 text-sm text-softWhite/80">
-                <input type="checkbox" name="published" defaultChecked={item.published} /> Published
+                <input type="checkbox" name="published" defaultChecked={item.published} /> {t.admin.testimonials.published}
               </label>
 
               <div className="flex gap-2">
                 <button className="rounded-xl border border-white/20 px-3 py-1.5 text-xs text-softWhite hover:border-gold/60 hover:text-gold">
-                  Save
+                  {t.admin.testimonials.save}
                 </button>
                 <button
                   formAction={deleteTestimonialAction}
                   className="rounded-xl border border-red-500/40 px-3 py-1.5 text-xs text-red-300 hover:bg-red-500/10"
                 >
-                  Delete
+                  {t.admin.testimonials.delete}
                 </button>
               </div>
             </div>
           </form>
         ))}
 
-        {testimonials.length === 0 ? <div className="panel text-sm text-softWhite/65">No testimonials created.</div> : null}
+        {testimonials.length === 0 ? <div className="panel text-sm text-softWhite/65">{t.admin.testimonials.empty}</div> : null}
       </div>
     </div>
   );
