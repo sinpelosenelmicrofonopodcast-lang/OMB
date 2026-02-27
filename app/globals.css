@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  background: radial-gradient(circle at 12% 0%, rgba(20, 185, 231, 0.2), transparent 34%),
+    radial-gradient(circle at 86% 10%, rgba(255, 122, 26, 0.24), transparent 30%),
+    radial-gradient(circle at 50% 100%, rgba(255, 122, 26, 0.13), transparent 34%),
+    linear-gradient(180deg, #020202 0%, #070a0f 55%, #010101 100%);
+  color: #f4f7fb;
+  font-family: var(--font-body), sans-serif;
+}
+
+::selection {
+  background: rgba(255, 122, 26, 0.38);
+  color: #f4f7fb;
+}
+
+.panel {
+  @apply rounded-2xl border bg-charcoal/70 p-6 shadow-luxe;
+  border-color: rgba(255, 122, 26, 0.28);
+  box-shadow: 0 0 0 1px rgba(20, 185, 231, 0.14), 0 14px 30px rgba(0, 0, 0, 0.55);
+}
