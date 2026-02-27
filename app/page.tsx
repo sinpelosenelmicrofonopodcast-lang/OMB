@@ -6,7 +6,7 @@ import { VehicleCard } from "@/components/vehicle-card";
 import { getPublicSiteSettings } from "@/lib/db/site-settings";
 import { getFeaturedVehicles } from "@/lib/db/vehicles";
 import { getPublishedTestimonials } from "@/lib/db/testimonials";
-import { getLocale } from "@/lib/i18n/locale";
+import { getLocale } from "@/lib/i18n/server-locale";
 import { getDictionary } from "@/lib/i18n/messages";
 
 export default async function HomePage() {

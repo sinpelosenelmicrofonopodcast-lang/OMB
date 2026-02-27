@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getPublicSiteSettings } from "@/lib/db/site-settings";
 import { BrandLogo } from "@/components/layout/brand-logo";
-import { getLocale } from "@/lib/i18n/locale";
+import { getLocale } from "@/lib/i18n/server-locale";
 import { getDictionary } from "@/lib/i18n/messages";
 
 export async function SiteFooter() {

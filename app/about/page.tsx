@@ -1,5 +1,5 @@
 import { getPublicSiteSettings } from "@/lib/db/site-settings";
-import { getLocale } from "@/lib/i18n/locale";
+import { getLocale } from "@/lib/i18n/server-locale";
 import { getDictionary } from "@/lib/i18n/messages";
 
 export default async function AboutPage() {

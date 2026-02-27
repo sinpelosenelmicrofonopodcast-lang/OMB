@@ -1,6 +1,6 @@
 import { Input } from "@/components/ui/input";
 import { signInAction, signUpAction } from "@/actions/auth-actions";
-import { getLocale } from "@/lib/i18n/locale";
+import { getLocale } from "@/lib/i18n/server-locale";
 import { getDictionary, translateUiMessage } from "@/lib/i18n/messages";
 
 type PageProps = {

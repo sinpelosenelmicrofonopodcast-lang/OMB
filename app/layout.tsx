@@ -3,7 +3,7 @@ import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
-import { getLocale } from "@/lib/i18n/locale";
+import { getLocale } from "@/lib/i18n/server-locale";
 
 const heading = Playfair_Display({
   variable: "--font-heading",

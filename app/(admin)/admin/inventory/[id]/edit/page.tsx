@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { VehicleForm } from "@/components/admin/vehicle-form";
 import { updateVehicleAction } from "@/actions/vehicle-actions";
 import { getVehicleById } from "@/lib/db/vehicles";
-import { getLocale } from "@/lib/i18n/locale";
+import { getLocale } from "@/lib/i18n/server-locale";
 import { getDictionary } from "@/lib/i18n/messages";
 
 type PageProps = {

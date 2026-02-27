@@ -4,7 +4,7 @@ import { Reveal } from "@/components/ui/reveal";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { getInventory, getVehicleMakes, type InventoryFilters } from "@/lib/db/vehicles";
-import { getLocale } from "@/lib/i18n/locale";
+import { getLocale } from "@/lib/i18n/server-locale";
 import { getDictionary, translateStatus } from "@/lib/i18n/messages";
 
 type PageProps = {

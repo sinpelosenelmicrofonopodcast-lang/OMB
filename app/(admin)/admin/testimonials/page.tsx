@@ -6,7 +6,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { getAdminTestimonials } from "@/lib/db/testimonials";
-import { getLocale } from "@/lib/i18n/locale";
+import { getLocale } from "@/lib/i18n/server-locale";
 import { getDictionary, translateUiMessage } from "@/lib/i18n/messages";
 
 type PageProps = {

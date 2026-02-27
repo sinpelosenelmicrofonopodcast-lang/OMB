@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { getPublicSiteSettings } from "@/lib/db/site-settings";
 import { getVehicleBySlug } from "@/lib/db/vehicles";
 import { formatCurrency, formatMileage } from "@/lib/utils";
-import { getLocale } from "@/lib/i18n/locale";
+import { getLocale } from "@/lib/i18n/server-locale";
 import { getDictionary, translateStatus } from "@/lib/i18n/messages";
 
 type PageProps = {

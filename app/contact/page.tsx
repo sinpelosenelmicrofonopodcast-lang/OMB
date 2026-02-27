@@ -4,7 +4,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { createLeadAction } from "@/actions/lead-actions";
 import { getPublicSiteSettings } from "@/lib/db/site-settings";
 import { getPublicVehicleById } from "@/lib/db/vehicles";
-import { getLocale } from "@/lib/i18n/locale";
+import { getLocale } from "@/lib/i18n/server-locale";
 import { getDictionary, translateUiMessage } from "@/lib/i18n/messages";
 
 type PageProps = {

@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { requireAdmin } from "@/lib/auth/guards";
 import { AdminSidebar } from "@/components/admin/sidebar";
 import { AdminTopbar } from "@/components/admin/topbar";
-import { getLocale } from "@/lib/i18n/locale";
+import { getLocale } from "@/lib/i18n/server-locale";
 
 export default async function AdminLayout({ children }: { children: ReactNode }) {
   const [adminResult, locale] = await Promise.all([requireAdmin(), getLocale()]);

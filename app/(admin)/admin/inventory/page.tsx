@@ -7,7 +7,8 @@ import {
 } from "@/actions/vehicle-actions";
 import { getInventory } from "@/lib/db/vehicles";
 import { formatCurrency } from "@/lib/utils";
-import { getLocale, toIntlLocale } from "@/lib/i18n/locale";
+import { toIntlLocale } from "@/lib/i18n/locale";
+import { getLocale } from "@/lib/i18n/server-locale";
 import { getDictionary, translateStatus, translateUiMessage } from "@/lib/i18n/messages";
 
 type PageProps = {

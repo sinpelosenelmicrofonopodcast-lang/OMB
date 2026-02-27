@@ -1,6 +1,7 @@
 import { deleteLeadAction } from "@/actions/lead-actions";
 import { getAdminLeads } from "@/lib/db/leads";
-import { getLocale, toIntlLocale } from "@/lib/i18n/locale";
+import { toIntlLocale } from "@/lib/i18n/locale";
+import { getLocale } from "@/lib/i18n/server-locale";
 import { getDictionary, translateUiMessage } from "@/lib/i18n/messages";
 
 type PageProps = {

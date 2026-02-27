@@ -1,6 +1,6 @@
 import { VehicleForm } from "@/components/admin/vehicle-form";
 import { createVehicleAction } from "@/actions/vehicle-actions";
-import { getLocale } from "@/lib/i18n/locale";
+import { getLocale } from "@/lib/i18n/server-locale";
 import { getDictionary } from "@/lib/i18n/messages";
 
 type PageProps = {
