@@ -12,6 +12,7 @@ import { toIntlLocale } from "@/lib/i18n/locale";
 import { getLocale } from "@/lib/i18n/server-locale";
 import { getDictionary, translateStatus, translateUiMessage } from "@/lib/i18n/messages";
 import { buildCarfaxUrl } from "@/lib/vin";
+import { ShareVehicleButtons } from "@/components/share/vehicle-share-buttons";
 
 type PageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -97,6 +98,13 @@ export default async function AdminInventoryPage({ searchParams }: PageProps) {
                 <td className="py-3">{new Date(vehicle.updated_at).toLocaleDateString(toIntlLocale(locale))}</td>
                 <td className="py-3">
                   <div className="flex flex-wrap gap-2">
+                    <ShareVehicleButtons
+                      title={vehicle.title}
+                      path={`/inventory/${vehicle.slug}`}
+                      labels={t.share}
+                      compact
+                    />
+
                     <form action={verifyVehicleVinAction}>
                       <input type="hidden" name="id" value={vehicle.id} />
                       <input type="hidden" name="vin" value={vehicle.vin ?? ""} />

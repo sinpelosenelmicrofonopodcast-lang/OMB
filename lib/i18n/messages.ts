@@ -202,6 +202,12 @@ export const messages = {
       na: "N/A",
       callForPrice: "Call for Price"
     },
+    share: {
+      share: "Share / Copy Link",
+      facebook: "Share Facebook",
+      copied: "Link Copied",
+      copyError: "Copy Failed"
+    },
     footer: {
       tagline: "Luxury inventory, transparent service, and elevated buying experience.",
       visit: "Visit",
@@ -482,6 +488,12 @@ export const messages = {
       applyFilters: "Aplicar filtros",
       na: "N/D",
       callForPrice: "Llamar para precio"
+    },
+    share: {
+      share: "Compartir / Copiar enlace",
+      facebook: "Compartir Facebook",
+      copied: "Enlace copiado",
+      copyError: "Error al copiar"
     },
     footer: {
       tagline: "Inventario de lujo, servicio transparente y una experiencia de compra superior.",

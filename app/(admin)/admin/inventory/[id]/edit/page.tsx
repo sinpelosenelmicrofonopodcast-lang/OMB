@@ -6,6 +6,7 @@ import { getVehicleById } from "@/lib/db/vehicles";
 import { getLocale } from "@/lib/i18n/server-locale";
 import { getDictionary } from "@/lib/i18n/messages";
 import { buildCarfaxUrl } from "@/lib/vin";
+import { ShareVehicleButtons } from "@/components/share/vehicle-share-buttons";
 
 type PageProps = {
   params: Promise<{
@@ -31,6 +32,13 @@ export default async function EditVehiclePage({ params, searchParams }: PageProp
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap justify-end gap-2">
+        <ShareVehicleButtons
+          title={vehicle.title}
+          path={`/inventory/${vehicle.slug}`}
+          labels={t.share}
+          compact
+        />
+
         <form action={verifyVehicleVinAction}>
           <input type="hidden" name="id" value={vehicle.id} />
           <input type="hidden" name="vin" value={vehicle.vin ?? ""} />

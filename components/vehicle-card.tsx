@@ -4,6 +4,7 @@ import type { Vehicle } from "@/lib/db/types";
 import { formatCurrency, formatMileage } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
+import { ShareVehicleButtons } from "@/components/share/vehicle-share-buttons";
 import type { Locale } from "@/lib/i18n/locale";
 import { getDictionary, translateStatus } from "@/lib/i18n/messages";
 
@@ -55,6 +56,13 @@ export function VehicleCard({ vehicle, locale }: VehicleCardProps) {
           </div>
           <p className="text-xl font-semibold text-gold">{formatCurrency(vehicle.price, locale)}</p>
         </div>
+
+        <ShareVehicleButtons
+          title={vehicle.title}
+          path={`/inventory/${vehicle.slug}`}
+          labels={t.share}
+          compact
+        />
       </div>
     </Card>
   );

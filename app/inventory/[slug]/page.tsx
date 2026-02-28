@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
+import { ShareVehicleButtons } from "@/components/share/vehicle-share-buttons";
 import { getPublicSiteSettings } from "@/lib/db/site-settings";
 import { getVehicleBySlug } from "@/lib/db/vehicles";
 import { formatCurrency, formatMileage } from "@/lib/utils";
@@ -123,6 +124,12 @@ export default async function VehicleDetailPage({ params }: PageProps) {
               {t.vehicleDetail.contactVehicle}
             </Link>
           </div>
+
+          <ShareVehicleButtons
+            title={vehicle.title}
+            path={`/inventory/${vehicle.slug}`}
+            labels={t.share}
+          />
         </div>
       </div>
 
