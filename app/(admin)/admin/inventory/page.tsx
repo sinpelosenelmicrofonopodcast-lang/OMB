@@ -5,11 +5,13 @@ import {
   toggleVehicleFeaturedAction,
   toggleVehiclePublishedAction
 } from "@/actions/vehicle-actions";
+import { verifyVehicleVinAction } from "@/actions/vin-actions";
 import { getInventory } from "@/lib/db/vehicles";
 import { formatCurrency } from "@/lib/utils";
 import { toIntlLocale } from "@/lib/i18n/locale";
 import { getLocale } from "@/lib/i18n/server-locale";
 import { getDictionary, translateStatus, translateUiMessage } from "@/lib/i18n/messages";
+import { buildCarfaxUrl } from "@/lib/vin";
 
 type PageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -95,6 +97,40 @@ export default async function AdminInventoryPage({ searchParams }: PageProps) {
                 <td className="py-3">{new Date(vehicle.updated_at).toLocaleDateString(toIntlLocale(locale))}</td>
                 <td className="py-3">
                   <div className="flex flex-wrap gap-2">
+                    <form action={verifyVehicleVinAction}>
+                      <input type="hidden" name="id" value={vehicle.id} />
+                      <input type="hidden" name="vin" value={vehicle.vin ?? ""} />
+                      <input type="hidden" name="return_to" value="/admin/inventory" />
+                      <button
+                        disabled={!vehicle.vin}
+                        className="rounded-lg border border-cyan/45 px-2.5 py-1 text-xs text-cyan hover:border-cyan hover:bg-cyan/10 disabled:cursor-not-allowed disabled:border-white/15 disabled:text-softWhite/40"
+                      >
+                        {t.admin.inventory.verifyVin}
+                      </button>
+                    </form>
+
+                    {vehicle.vin ? (
+                      <a
+                        href={buildCarfaxUrl(vehicle.vin) ?? undefined}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        className="rounded-lg border border-gold/45 px-2.5 py-1 text-xs text-gold hover:border-gold hover:bg-gold/10"
+                      >
+                        {t.admin.inventory.carfax}
+                      </a>
+                    ) : (
+                      <span className="rounded-lg border border-white/15 px-2.5 py-1 text-xs text-softWhite/40">
+                        {t.admin.inventory.carfax}
+                      </span>
+                    )}
+
+                    <a
+                      href={`/api/admin/vehicles/${vehicle.id}/pdf?lang=${locale}`}
+                      className="rounded-lg border border-cyan/45 px-2.5 py-1 text-xs text-cyan hover:border-cyan hover:bg-cyan/10"
+                    >
+                      {t.admin.inventory.downloadPdf}
+                    </a>
+
                     <Link
                       href={`/admin/inventory/${vehicle.id}/edit`}
                       className="rounded-lg border border-white/20 px-2.5 py-1 text-xs hover:border-gold/50 hover:text-gold"

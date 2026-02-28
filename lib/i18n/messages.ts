@@ -71,6 +71,34 @@ const uiMessageMap: Record<string, { en: string; es: string }> = {
     en: "Missing vehicle id",
     es: "Falta el ID del vehículo"
   },
+  "VIN is required.": {
+    en: "VIN is required.",
+    es: "El VIN es obligatorio."
+  },
+  "VIN format is invalid. VIN must be 17 characters (no I, O, Q).": {
+    en: "VIN format is invalid. VIN must be 17 characters (no I, O, Q).",
+    es: "El formato del VIN no es válido. Debe tener 17 caracteres (sin I, O, Q)."
+  },
+  "VIN verification service unavailable.": {
+    en: "VIN verification service unavailable.",
+    es: "El servicio de verificación VIN no está disponible."
+  },
+  "VIN check could not decode this VIN.": {
+    en: "VIN check could not decode this VIN.",
+    es: "La verificación VIN no pudo decodificar este VIN."
+  },
+  "VIN verified with NHTSA and saved.": {
+    en: "VIN verified with NHTSA and saved.",
+    es: "VIN verificado con NHTSA y guardado."
+  },
+  "Failed to verify VIN.": {
+    en: "Failed to verify VIN.",
+    es: "No se pudo verificar el VIN."
+  },
+  "Vehicle not found.": {
+    en: "Vehicle not found.",
+    es: "Vehículo no encontrado."
+  },
   "Vehicle updated": {
     en: "Vehicle updated",
     es: "Vehículo actualizado"
@@ -336,6 +364,9 @@ export const messages = {
         published: "Published",
         updated: "Updated",
         actions: "Actions",
+        verifyVin: "Verify VIN",
+        carfax: "CARFAX",
+        downloadPdf: "Download PDF",
         edit: "Edit",
         markSold: "Mark Sold",
         feature: "Feature",
@@ -615,6 +646,9 @@ export const messages = {
         published: "Publicado",
         updated: "Actualizado",
         actions: "Acciones",
+        verifyVin: "Verificar VIN",
+        carfax: "CARFAX",
+        downloadPdf: "Descargar PDF",
         edit: "Editar",
         markSold: "Marcar vendido",
         feature: "Destacar",
