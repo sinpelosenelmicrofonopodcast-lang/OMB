@@ -21,11 +21,11 @@ const uiMessageMap: Record<string, { en: string; es: string }> = {
   },
   "Site settings saved": {
     en: "Site settings saved",
-    es: "Configuracion del sitio guardada"
+    es: "Configuración del sitio guardada"
   },
   "Failed to save site settings.": {
     en: "Failed to save site settings.",
-    es: "No se pudo guardar la configuracion del sitio."
+    es: "No se pudo guardar la configuración del sitio."
   },
   "Name and quote required": {
     en: "Name and quote required",
@@ -49,7 +49,7 @@ const uiMessageMap: Record<string, { en: string; es: string }> = {
   },
   "Publish status updated": {
     en: "Publish status updated",
-    es: "Estado de publicacion actualizado"
+    es: "Estado de publicación actualizado"
   },
   "Testimonial deleted": {
     en: "Testimonial deleted",
@@ -57,27 +57,27 @@ const uiMessageMap: Record<string, { en: string; es: string }> = {
   },
   "Vehicle title is required.": {
     en: "Vehicle title is required.",
-    es: "El titulo del vehiculo es obligatorio."
+    es: "El título del vehículo es obligatorio."
   },
   "Vehicle created": {
     en: "Vehicle created",
-    es: "Vehiculo creado"
+    es: "Vehículo creado"
   },
   "Failed to create vehicle.": {
     en: "Failed to create vehicle.",
-    es: "No se pudo crear el vehiculo."
+    es: "No se pudo crear el vehículo."
   },
   "Missing vehicle id": {
     en: "Missing vehicle id",
-    es: "Falta el ID del vehiculo"
+    es: "Falta el ID del vehículo"
   },
   "Vehicle updated": {
     en: "Vehicle updated",
-    es: "Vehiculo actualizado"
+    es: "Vehículo actualizado"
   },
   "Failed to update vehicle.": {
     en: "Failed to update vehicle.",
-    es: "No se pudo actualizar el vehiculo."
+    es: "No se pudo actualizar el vehículo."
   },
   "Updated featured status": {
     en: "Updated featured status",
@@ -85,15 +85,15 @@ const uiMessageMap: Record<string, { en: string; es: string }> = {
   },
   "Updated publish status": {
     en: "Updated publish status",
-    es: "Estado de publicacion actualizado"
+    es: "Estado de publicación actualizado"
   },
   "Vehicle marked sold": {
     en: "Vehicle marked sold",
-    es: "Vehiculo marcado como vendido"
+    es: "Vehículo marcado como vendido"
   },
   "Vehicle deleted": {
     en: "Vehicle deleted",
-    es: "Vehiculo eliminado"
+    es: "Vehículo eliminado"
   },
   "Account created. Ask an admin to grant admin role before dashboard access.": {
     en: "Account created. Ask an admin to grant admin role before dashboard access.",
@@ -101,7 +101,7 @@ const uiMessageMap: Record<string, { en: string; es: string }> = {
   },
   "Invalid login credentials": {
     en: "Invalid login credentials",
-    es: "Credenciales de acceso invalidas"
+    es: "Credenciales de acceso inválidas"
   },
   "Email not confirmed": {
     en: "Email not confirmed",
@@ -141,7 +141,7 @@ const uiMessageMap: Record<string, { en: string; es: string }> = {
   },
   "Team members table missing. Run latest database migration.": {
     en: "Team members table missing. Run latest database migration.",
-    es: "Falta la tabla team_members. Ejecuta la migracion mas reciente de la base de datos."
+    es: "Falta la tabla team_members. Ejecuta la migración más reciente de la base de datos."
   }
 };
 
@@ -440,11 +440,11 @@ export const messages = {
     },
     common: {
       all: "Todos",
-      yes: "Si",
+      yes: "Sí",
       no: "No",
       featured: "Destacado",
       mileage: "Millaje",
-      year: "Ano",
+      year: "Año",
       status: "Estado",
       sort: "Ordenar",
       search: "Buscar",
@@ -454,7 +454,7 @@ export const messages = {
     },
     footer: {
       tagline: "Inventario de lujo, servicio transparente y una experiencia de compra superior.",
-      visit: "Visitanos",
+      visit: "Visítanos",
       connect: "Conecta",
       adminLogin: "Acceso Admin",
       rights: "Todos los derechos reservados."
@@ -464,80 +464,80 @@ export const messages = {
       exploreInventory: "Explorar inventario",
       callPrefix: "Llamar",
       featuredEyebrow: "Destacados",
-      featuredTitle: "Vehiculos destacados",
-      featuredDescription: "Una seleccion rotativa de inventario de lujo disponible ahora.",
-      noFeatured: "Aun no hay vehiculos destacados publicados.",
-      whyEyebrow: "Por que OMB",
-      whyTitle: "Estandares de lujo, confianza local",
-      whyDescription: "Cada parte de nuestro proceso esta pensada para confianza, discrecion y valor premium.",
+      featuredTitle: "Vehículos destacados",
+      featuredDescription: "Una selección rotativa de inventario de lujo disponible ahora.",
+      noFeatured: "Aún no hay vehículos destacados publicados.",
+      whyEyebrow: "Por qué OMB",
+      whyTitle: "Estándares de lujo, confianza local",
+      whyDescription: "Cada parte de nuestro proceso está pensada para confianza, discreción y valor premium.",
       whyCards: [
         {
           title: "Inventario de lujo seleccionado",
-          description: "Sedanes, SUVs y vehiculos de alto rendimiento seleccionados de marcas confiables."
+          description: "Sedanes, SUVs y vehículos de alto rendimiento seleccionados de marcas confiables."
         },
         {
           title: "Proceso de compra transparente",
-          description: "Precios claros, divulgacion completa y apoyo directo para financiamiento."
+          description: "Precios claros, divulgación completa y apoyo directo para financiamiento."
         },
         {
           title: "Servicio local y cercano",
-          description: "Atencion personalizada desde la primera visita hasta el soporte posterior."
+          description: "Atención personalizada desde la primera visita hasta el soporte posterior."
         }
       ],
       aboutEyebrow: "Sobre OMB AUTO SALES",
       aboutTitle: "Impulsados por calidad. Construidos con confianza.",
       aboutDescription:
-        "OMB AUTO SALES es un dealer en Killeen enfocado en vehiculos de lujo y alto rendimiento con servicio transparente y trato cercano.",
-      learnMore: "Ver mas",
-      locationTitle: "Ubicacion y contacto",
+        "OMB AUTO SALES es un dealer en Killeen enfocado en vehículos de lujo y alto rendimiento con servicio transparente y trato cercano.",
+      learnMore: "Ver más",
+      locationTitle: "Ubicación y contacto",
       scheduleVisit: "Agenda una visita",
       testimonialsEyebrow: "Testimonios",
       testimonialsTitle: "Experiencias de clientes",
-      noTestimonials: "Los testimonios apareceran aqui cuando se publiquen en admin."
+      noTestimonials: "Los testimonios aparecerán aquí cuando se publiquen en admin."
     },
     about: {
       eyebrow: "Sobre nosotros",
       title: "OMB AUTO SALES",
       intro:
-        "OMB AUTO SALES ofrece una experiencia premium con enfoque en vehiculos de lujo, asesoria transparente y relaciones duraderas. Atendemos a conductores de todo Texas Central desde Killeen.",
-      missionTitle: "Nuestra mision",
+        "OMB AUTO SALES ofrece una experiencia premium con enfoque en vehículos de lujo, asesoría transparente y relaciones duraderas. Atendemos a conductores de todo Texas Central desde Killeen.",
+      missionTitle: "Nuestra misión",
       missionDescription:
-        "Ofrecer vehiculos excepcionales y un servicio tipo concierge con integridad en cada paso de compra.",
-      visitTitle: "Visitanos",
+        "Ofrecer vehículos excepcionales y un servicio tipo concierge con integridad en cada paso de compra.",
+      visitTitle: "Visítanos",
       teamEyebrow: "Nuestro equipo",
       teamTitle: "Conoce al equipo",
       teamDescription:
-        "Los profesionales detras de OMB AUTO SALES estan aqui para darte una experiencia de compra confiable y sin complicaciones.",
-      teamEmpty: "Los perfiles del equipo apareceran aqui cuando los agregue el admin."
+        "Los profesionales detrás de OMB AUTO SALES están aquí para darte una experiencia de compra confiable y sin complicaciones.",
+      teamEmpty: "Los perfiles del equipo aparecerán aquí cuando los agregue el admin."
     },
     contact: {
       eyebrow: "Contacto",
       title: "Hablemos de lujo",
-      description: "Solicita precios, opciones de financiamiento o una cita en showroom. Respondemos rapido.",
+      description: "Solicita precios, opciones de financiamiento o una cita en showroom. Respondemos rápido.",
       callNow: "Llamar ahora",
-      submitted: "Consulta recibida. Nuestro equipo te contactara pronto.",
+      submitted: "Consulta recibida. Nuestro equipo te contactará pronto.",
       linkedTo: "Consulta vinculada a:",
-      viewVehicle: "ver vehiculo",
+      viewVehicle: "ver vehículo",
       name: "Nombre",
       email: "Correo",
-      phone: "Telefono",
+      phone: "Teléfono",
       message: "Mensaje",
-      messagePlaceholder: "Cuentanos que vehiculo estas buscando...",
+      messagePlaceholder: "Cuéntanos qué vehículo estás buscando...",
       sendInquiry: "Enviar consulta"
     },
     inventory: {
       eyebrow: "Inventario",
       title: "Inventario de lujo",
-      description: "Busca y filtra inventario por marca, ano, rango de precio y disponibilidad.",
+      description: "Busca y filtra inventario por marca, año, rango de precio y disponibilidad.",
       make: "Marca",
-      minPrice: "Precio minimo",
-      maxPrice: "Precio maximo",
-      newest: "Mas recientes",
+      minPrice: "Precio mínimo",
+      maxPrice: "Precio máximo",
+      newest: "Más recientes",
       priceLowToHigh: "Precio: menor a mayor",
       priceHighToLow: "Precio: mayor a menor",
       searchPlaceholder: "Mercedes, BMW, GLE...",
-      foundSuffix: "vehiculos encontrados",
-      noMatches: "No se encontraron vehiculos con esos filtros. Ajusta los criterios e intenta otra vez."
+      foundSuffix: "vehículos encontrados",
+      noMatches: "No se encontraron vehículos con esos filtros. Ajusta los criterios e intenta otra vez."
     },
     vehicleCard: {
       featured: "DESTACADO"
@@ -547,48 +547,48 @@ export const messages = {
       overview: "Resumen",
       make: "Marca",
       model: "Modelo",
-      trim: "Version",
+      trim: "Versión",
       vin: "VIN",
-      drivetrain: "Traccion",
-      transmission: "Transmision",
+      drivetrain: "Tracción",
+      transmission: "Transmisión",
       fuelType: "Combustible",
       color: "Color",
       highlights: "Destacados",
       callNow: "Llamar ahora",
-      contactVehicle: "Consultar por este vehiculo",
-      description: "Descripcion",
+      contactVehicle: "Consultar por este vehículo",
+      description: "Descripción",
       additionalSpecs: "Especificaciones adicionales"
     },
     login: {
       eyebrow: "Acceso de cuenta",
-      title: "Autenticacion admin",
-      signIn: "Iniciar sesion",
+      title: "Autenticación admin",
+      signIn: "Iniciar sesión",
       createAccount: "Crear cuenta",
       fullName: "Nombre completo",
-      password: "Contrasena",
+      password: "Contraseña",
       signUp: "Registrarse"
     },
     notFound: {
-      title: "Pagina no encontrada",
-      description: "La pagina solicitada no esta disponible o fue movida.",
+      title: "Página no encontrada",
+      description: "La página solicitada no está disponible o fue movida.",
       returnHome: "Volver al inicio"
     },
     admin: {
       sidebar: {
         dashboard: "Panel",
         inventory: "Inventario",
-        addVehicle: "Agregar vehiculo",
-        siteSettings: "Configuracion del sitio",
+        addVehicle: "Agregar vehículo",
+        siteSettings: "Configuración del sitio",
         leads: "Leads",
         testimonials: "Testimonios",
         team: "Equipo"
       },
       topbar: {
-        title: "Panel de administracion",
-        logout: "Cerrar sesion"
+        title: "Panel de administración",
+        logout: "Cerrar sesión"
       },
       stats: {
-        totalVehicles: "Vehiculos totales",
+        totalVehicles: "Vehículos totales",
         available: "Disponibles",
         sold: "Vendidos",
         leads7d: "Leads (7d)"
@@ -596,19 +596,19 @@ export const messages = {
       dashboard: {
         recentUpdates: "Actualizaciones recientes de inventario",
         manageInventory: "Gestionar inventario",
-        title: "Titulo",
+        title: "Título",
         price: "Precio",
         status: "Estado",
         updated: "Actualizado",
-        noVehicles: "Aun no hay vehiculos. Agrega tu primer listado."
+        noVehicles: "Aún no hay vehículos. Agrega tu primer listado."
       },
       inventory: {
         title: "Gestor de inventario",
-        vehiclesSuffix: "vehiculos",
-        addVehicle: "Agregar vehiculo",
-        searchPlaceholder: "Buscar por titulo, marca o modelo",
+        vehiclesSuffix: "vehículos",
+        addVehicle: "Agregar vehículo",
+        searchPlaceholder: "Buscar por título, marca o modelo",
         filter: "Filtrar",
-        tableTitle: "Titulo",
+        tableTitle: "Título",
         price: "Precio",
         status: "Estado",
         featured: "Destacado",
@@ -622,62 +622,62 @@ export const messages = {
         publish: "Publicar",
         unpublish: "Ocultar",
         delete: "Eliminar",
-        noVehicles: "No se encontraron vehiculos."
+        noVehicles: "No se encontraron vehículos."
       },
       vehicleForm: {
-        title: "Titulo",
+        title: "Título",
         slugOptional: "Slug (opcional)",
-        year: "Ano",
+        year: "Año",
         make: "Marca",
         model: "Modelo",
-        trim: "Version",
+        trim: "Versión",
         mileage: "Millaje",
         priceUsd: "Precio (USD)",
         vin: "VIN",
         color: "Color",
-        drivetrain: "Traccion",
-        transmission: "Transmision",
+        drivetrain: "Tracción",
+        transmission: "Transmisión",
         fuelType: "Combustible",
         mainImageUrl: "URL de imagen principal",
         uploadMainImage: "Subir imagen principal",
-        uploadGallery: "Subir imagenes de galeria",
-        galleryUrls: "URLs de galeria (una por linea)",
-        highlights: "Destacados (uno por linea)",
-        description: "Descripcion",
+        uploadGallery: "Subir imágenes de galería",
+        galleryUrls: "URLs de galería (una por línea)",
+        highlights: "Destacados (uno por línea)",
+        description: "Descripción",
         specsJson: "Specs JSON",
         featured: "Destacado",
         published: "Publicado",
-        addVehicle: "Agregar vehiculo",
-        createVehicle: "Crear vehiculo",
-        editPrefix: "Editar vehiculo:",
+        addVehicle: "Agregar vehículo",
+        createVehicle: "Crear vehículo",
+        editPrefix: "Editar vehículo:",
         saveChanges: "Guardar cambios"
       },
       siteSettings: {
-        title: "Configuracion del sitio",
+        title: "Configuración del sitio",
         businessName: "Nombre del negocio",
-        phone: "Telefono",
+        phone: "Teléfono",
         hours: "Horario",
-        address: "Direccion",
-        heroHeadline: "Titulo principal",
-        heroSubheadline: "Subtitulo principal",
+        address: "Dirección",
+        heroHeadline: "Título principal",
+        heroSubheadline: "Subtítulo principal",
         heroBgUrl: "URL de fondo del hero",
         save: "Guardar cambios"
       },
       leads: {
         title: "Leads",
         view: "Ver",
-        vehicle: "Vehiculo:",
+        vehicle: "Vehículo:",
         generalInquiry: "Consulta general",
         message: "Mensaje:",
         noMessage: "(Sin mensaje)",
         delete: "Eliminar lead",
-        empty: "Aun no se han enviado leads."
+        empty: "Aún no se han enviado leads."
       },
       testimonials: {
         title: "Testimonios",
         add: "Agregar testimonio",
         name: "Nombre",
-        rating: "Calificacion (1-5)",
+        rating: "Calificación (1-5)",
         quote: "Cita",
         published: "Publicado",
         create: "Crear",
@@ -690,7 +690,7 @@ export const messages = {
         add: "Agregar miembro",
         name: "Nombre",
         role: "Rol / Puesto",
-        order: "Orden de visualizacion",
+        order: "Orden de visualización",
         photoUrl: "URL de foto",
         uploadPhoto: "Subir foto",
         bio: "Bio corta",

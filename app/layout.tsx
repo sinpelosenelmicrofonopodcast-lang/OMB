@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
       : "OMB AUTO SALES | Luxury Car Dealership in Killeen, TX";
   const description =
     locale === "es"
-      ? "Descubre vehiculos premium en OMB AUTO SALES, 710 W Veterans Memorial Blvd, Killeen, TX."
+      ? "Descubre vehículos premium en OMB AUTO SALES, 710 W Veterans Memorial Blvd, Killeen, TX."
       : "Discover premium luxury vehicles at OMB AUTO SALES, 710 W Veterans Memorial Blvd, Killeen, TX.";
 
   return {

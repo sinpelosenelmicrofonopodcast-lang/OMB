@@ -22,7 +22,7 @@ export function AdminSidebar({ locale }: AdminSidebarProps) {
     <aside className="rounded-3xl border border-white/10 bg-[#111111] p-5 md:p-6">
       <p className="font-heading text-2xl text-softWhite">
         <span className="bg-gradient-to-r from-cyan to-gold bg-clip-text text-transparent">OMB</span>{" "}
-        {locale === "es" ? "Administracion" : "Admin"}
+        {locale === "es" ? "Administración" : "Admin"}
       </p>
       <nav className="mt-8 space-y-2">
         {links.map((link) => (
