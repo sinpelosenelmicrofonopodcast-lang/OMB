@@ -37,6 +37,9 @@ export async function SiteFooter() {
             <Link href="/about" className="text-softWhite/70 hover:text-gold">
               {t.nav.about}
             </Link>
+            <Link href="/login" className="text-softWhite/70 hover:text-gold">
+              {t.footer.adminLogin}
+            </Link>
           </div>
         </div>
       </div>

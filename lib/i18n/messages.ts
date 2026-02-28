@@ -178,6 +178,7 @@ export const messages = {
       tagline: "Luxury inventory, transparent service, and elevated buying experience.",
       visit: "Visit",
       connect: "Connect",
+      adminLogin: "Admin Login",
       rights: "All rights reserved."
     },
     home: {
@@ -455,6 +456,7 @@ export const messages = {
       tagline: "Inventario de lujo, servicio transparente y una experiencia de compra superior.",
       visit: "Visitanos",
       connect: "Conecta",
+      adminLogin: "Acceso Admin",
       rights: "Todos los derechos reservados."
     },
     home: {
