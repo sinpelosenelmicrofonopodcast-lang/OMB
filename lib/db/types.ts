@@ -223,6 +223,42 @@ export type Database = {
         };
         Relationships: [];
       };
+      team_members: {
+        Row: {
+          bio: string | null;
+          created_at: string;
+          display_order: number;
+          id: string;
+          name: string;
+          photo_url: string | null;
+          published: boolean;
+          role: string | null;
+          updated_at: string;
+        };
+        Insert: {
+          bio?: string | null;
+          created_at?: string;
+          display_order?: number;
+          id?: string;
+          name: string;
+          photo_url?: string | null;
+          published?: boolean;
+          role?: string | null;
+          updated_at?: string;
+        };
+        Update: {
+          bio?: string | null;
+          created_at?: string;
+          display_order?: number;
+          id?: string;
+          name?: string;
+          photo_url?: string | null;
+          published?: boolean;
+          role?: string | null;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
     };
     Views: {
       [_ in never]: never;
@@ -248,3 +284,4 @@ export type Vehicle = Database["public"]["Tables"]["vehicles"]["Row"];
 export type VehicleInsert = Database["public"]["Tables"]["vehicles"]["Insert"];
 export type VehicleUpdate = Database["public"]["Tables"]["vehicles"]["Update"];
 export type Testimonial = Database["public"]["Tables"]["testimonials"]["Row"];
+export type TeamMember = Database["public"]["Tables"]["team_members"]["Row"];

@@ -106,6 +106,42 @@ const uiMessageMap: Record<string, { en: string; es: string }> = {
   "Email not confirmed": {
     en: "Email not confirmed",
     es: "Correo no confirmado"
+  },
+  "Team member name is required.": {
+    en: "Team member name is required.",
+    es: "El nombre del miembro del equipo es obligatorio."
+  },
+  "Team member created": {
+    en: "Team member created",
+    es: "Miembro del equipo creado"
+  },
+  "Failed to create team member.": {
+    en: "Failed to create team member.",
+    es: "No se pudo crear el miembro del equipo."
+  },
+  "Missing team member id": {
+    en: "Missing team member id",
+    es: "Falta el ID del miembro del equipo"
+  },
+  "Team member updated": {
+    en: "Team member updated",
+    es: "Miembro del equipo actualizado"
+  },
+  "Failed to update team member.": {
+    en: "Failed to update team member.",
+    es: "No se pudo actualizar el miembro del equipo."
+  },
+  "Team member deleted": {
+    en: "Team member deleted",
+    es: "Miembro del equipo eliminado"
+  },
+  "Failed to delete team member.": {
+    en: "Failed to delete team member.",
+    es: "No se pudo eliminar el miembro del equipo."
+  },
+  "Team members table missing. Run latest database migration.": {
+    en: "Team members table missing. Run latest database migration.",
+    es: "Falta la tabla team_members. Ejecuta la migracion mas reciente de la base de datos."
   }
 };
 
@@ -188,7 +224,11 @@ export const messages = {
       missionTitle: "Our Mission",
       missionDescription:
         "Provide exceptional vehicles and concierge-level service with integrity at every step of the buying process.",
-      visitTitle: "Visit Us"
+      visitTitle: "Visit Us",
+      teamEyebrow: "Our Team",
+      teamTitle: "Meet the Team",
+      teamDescription: "The professionals behind OMB AUTO SALES are here to deliver a smooth, trusted buying experience.",
+      teamEmpty: "Team profiles will appear here once added by admin."
     },
     contact: {
       eyebrow: "Contact",
@@ -260,7 +300,8 @@ export const messages = {
         addVehicle: "Add Vehicle",
         siteSettings: "Site Settings",
         leads: "Leads",
-        testimonials: "Testimonials"
+        testimonials: "Testimonials",
+        team: "Team"
       },
       topbar: {
         title: "Admin Dashboard",
@@ -363,6 +404,22 @@ export const messages = {
         save: "Save",
         delete: "Delete",
         empty: "No testimonials created."
+      },
+      team: {
+        title: "Team Members",
+        add: "Add Team Member",
+        name: "Name",
+        role: "Role / Position",
+        order: "Display Order",
+        photoUrl: "Photo URL",
+        uploadPhoto: "Upload Photo",
+        bio: "Short Bio",
+        published: "Published",
+        create: "Create",
+        save: "Save",
+        delete: "Delete",
+        noPhoto: "No photo",
+        empty: "No team members created."
       }
     }
   },
@@ -444,7 +501,12 @@ export const messages = {
       missionTitle: "Nuestra mision",
       missionDescription:
         "Ofrecer vehiculos excepcionales y un servicio tipo concierge con integridad en cada paso de compra.",
-      visitTitle: "Visitanos"
+      visitTitle: "Visitanos",
+      teamEyebrow: "Nuestro equipo",
+      teamTitle: "Conoce al equipo",
+      teamDescription:
+        "Los profesionales detras de OMB AUTO SALES estan aqui para darte una experiencia de compra confiable y sin complicaciones.",
+      teamEmpty: "Los perfiles del equipo apareceran aqui cuando los agregue el admin."
     },
     contact: {
       eyebrow: "Contacto",
@@ -516,7 +578,8 @@ export const messages = {
         addVehicle: "Agregar vehiculo",
         siteSettings: "Configuracion del sitio",
         leads: "Leads",
-        testimonials: "Testimonios"
+        testimonials: "Testimonios",
+        team: "Equipo"
       },
       topbar: {
         title: "Panel de administracion",
@@ -619,6 +682,22 @@ export const messages = {
         save: "Guardar",
         delete: "Eliminar",
         empty: "No hay testimonios creados."
+      },
+      team: {
+        title: "Miembros del equipo",
+        add: "Agregar miembro",
+        name: "Nombre",
+        role: "Rol / Puesto",
+        order: "Orden de visualizacion",
+        photoUrl: "URL de foto",
+        uploadPhoto: "Subir foto",
+        bio: "Bio corta",
+        published: "Publicado",
+        create: "Crear",
+        save: "Guardar",
+        delete: "Eliminar",
+        noPhoto: "Sin foto",
+        empty: "No hay miembros del equipo creados."
       }
     }
   }

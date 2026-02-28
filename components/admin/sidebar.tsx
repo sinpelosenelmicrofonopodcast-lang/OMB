@@ -12,6 +12,7 @@ export function AdminSidebar({ locale }: AdminSidebarProps) {
     { href: "/admin", label: t.admin.sidebar.dashboard },
     { href: "/admin/inventory", label: t.admin.sidebar.inventory },
     { href: "/admin/inventory/new", label: t.admin.sidebar.addVehicle },
+    { href: "/admin/team", label: t.admin.sidebar.team },
     { href: "/admin/site", label: t.admin.sidebar.siteSettings },
     { href: "/admin/leads", label: t.admin.sidebar.leads },
     { href: "/admin/testimonials", label: t.admin.sidebar.testimonials }
