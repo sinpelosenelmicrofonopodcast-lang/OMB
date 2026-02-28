@@ -1,12 +1,14 @@
 import Link from "next/link";
 import { getSessionUser } from "@/lib/auth/guards";
+import { getPublicSiteSettings } from "@/lib/db/site-settings";
 import { BrandLogo } from "@/components/layout/brand-logo";
 import { LanguageToggle } from "@/components/layout/language-toggle";
 import { getLocale } from "@/lib/i18n/server-locale";
 import { getDictionary } from "@/lib/i18n/messages";
 
 export async function SiteHeader() {
-  const [user, locale] = await Promise.all([getSessionUser(), getLocale()]);
+  const locale = await getLocale();
+  const [user, settings] = await Promise.all([getSessionUser(), getPublicSiteSettings(locale)]);
   const t = getDictionary(locale);
   const navItems = [
     { href: "/", label: t.nav.home },
@@ -18,8 +20,18 @@ export async function SiteHeader() {
   return (
     <header className="sticky top-0 z-30 border-b border-white/10 bg-matteBlack/85 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-1.5 md:px-8">
-        <div>
+        <div className="flex items-center gap-3">
           <BrandLogo width={118} height={68} priority imageClassName="max-w-[118px] md:max-w-[126px]" />
+          <div className="hidden items-center gap-2 rounded-xl border border-white/10 bg-charcoal/65 px-3 py-1 lg:flex">
+            <p className="max-w-[310px] truncate text-[11px] leading-none text-softWhite/75">{settings.address}</p>
+            <span className="h-3 w-px bg-white/15" />
+            <a
+              href={`tel:${settings.phone?.replace(/[^\d+]/g, "")}`}
+              className="whitespace-nowrap text-[11px] leading-none text-softWhite/80 transition hover:text-gold"
+            >
+              {settings.phone}
+            </a>
+          </div>
         </div>
 
         <nav className="hidden items-center gap-5 md:flex">
