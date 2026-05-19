@@ -219,6 +219,13 @@ export async function updateVehicleAction(formData: FormData) {
     const { supabase } = await ensureAdmin();
     const payload = parseVehiclePayload(formData);
     const existingSlug = getText(formData, "existing_slug");
+    const { data: existingVehicle, error: existingVehicleError } = await supabase
+      .from("vehicles")
+      .select("gallery_urls, main_image_url")
+      .eq("id", vehicleId)
+      .maybeSingle();
+
+    if (existingVehicleError) throw existingVehicleError;
 
     const slugBase = slugify(payload.slugInput || existingSlug || payload.title) || `${slugify(payload.title) || "vehicle"}-${vehicleId.slice(0, 6)}`;
     const slug = await ensureUniqueSlug(supabase, slugBase, vehicleId);
@@ -231,7 +238,9 @@ export async function updateVehicleAction(formData: FormData) {
       galleryUploads.map((file, index) => uploadVehicleImage(supabase, vehicleId, file, `gallery-${index + 1}`))
     );
 
-    const galleryUrls = Array.from(new Set([...payload.manualGalleryUrls, ...uploadedGalleryUrls]));
+    const galleryUrls = Array.from(
+      new Set([...(existingVehicle?.gallery_urls ?? []), ...payload.manualGalleryUrls, ...uploadedGalleryUrls])
+    );
 
     const { error } = await supabase
       .from("vehicles")
@@ -254,7 +263,7 @@ export async function updateVehicleAction(formData: FormData) {
         fuel_type: payload.fuelType,
         description: payload.description,
         highlights: payload.highlights,
-        main_image_url: uploadedMainUrl ?? payload.mainImageUrl,
+        main_image_url: uploadedMainUrl ?? payload.mainImageUrl ?? existingVehicle?.main_image_url ?? null,
         gallery_urls: galleryUrls,
         specs: payload.specs
       })
