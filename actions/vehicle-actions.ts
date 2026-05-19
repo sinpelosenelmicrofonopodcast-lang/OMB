@@ -17,6 +17,8 @@ import {
 
 const BUCKET_NAME = "vehicle-images";
 const VEHICLE_STATUSES = new Set(["available", "pending", "sold"]);
+const ALLOWED_IMAGE_TYPES = new Set(["image/jpeg", "image/png", "image/webp", "image/avif"]);
+const MAX_IMAGE_SIZE_BYTES = 12 * 1024 * 1024;
 
 type VehicleFormPayload = {
   title: string;
@@ -109,6 +111,14 @@ async function uploadVehicleImage(
   file: File,
   prefix: string
 ) {
+  if (!ALLOWED_IMAGE_TYPES.has(file.type)) {
+    throw new Error("Please upload JPG, PNG, WebP, or AVIF images.");
+  }
+
+  if (file.size > MAX_IMAGE_SIZE_BYTES) {
+    throw new Error("Each vehicle image must be 12 MB or smaller.");
+  }
+
   const timestamp = Date.now();
   const fileName = sanitizeFileName(file.name || `${prefix}.jpg`);
   const path = `vehicles/${vehicleId}/${prefix}-${timestamp}-${fileName}`;
@@ -147,7 +157,8 @@ export async function createVehicleAction(formData: FormData) {
   try {
     const { supabase } = await ensureAdmin();
     const payload = parseVehiclePayload(formData);
-    const vehicleId = crypto.randomUUID();
+    const submittedVehicleId = getText(formData, "id");
+    const vehicleId = submittedVehicleId || crypto.randomUUID();
 
     const requestedSlug = slugify(payload.slugInput || payload.title);
     const fallbackSlug = `${slugify(payload.title) || "vehicle"}-${vehicleId.slice(0, 6)}`;

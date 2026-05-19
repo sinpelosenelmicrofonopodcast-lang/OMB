@@ -4,6 +4,7 @@ import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import type { Locale } from "@/lib/i18n/locale";
 import { getDictionary, translateStatus, translateUiMessage } from "@/lib/i18n/messages";
+import { VehicleImageUploadFields } from "@/components/admin/vehicle-image-upload-fields";
 
 type VehicleFormProps = {
   title: string;
@@ -16,6 +17,7 @@ type VehicleFormProps = {
 
 export function VehicleForm({ title, submitLabel, action, vehicle, message, locale }: VehicleFormProps) {
   const t = getDictionary(locale);
+  const vehicleId = vehicle?.id ?? crypto.randomUUID();
 
   return (
     <div className="space-y-5">
@@ -29,7 +31,7 @@ export function VehicleForm({ title, submitLabel, action, vehicle, message, loca
       </div>
 
       <form action={action} className="panel space-y-6">
-        {vehicle ? <input type="hidden" name="id" value={vehicle.id} /> : null}
+        <input type="hidden" name="id" value={vehicleId} />
         <input type="hidden" name="existing_slug" value={vehicle?.slug ?? ""} />
 
         <div className="grid gap-4 md:grid-cols-2">
@@ -142,19 +144,18 @@ export function VehicleForm({ title, submitLabel, action, vehicle, message, loca
             <Input id="main_image_url" name="main_image_url" defaultValue={vehicle?.main_image_url ?? ""} />
           </div>
 
-          <div>
-            <label htmlFor="main_image" className="mb-1 block text-xs uppercase tracking-[0.2em] text-softWhite/60">
-              {t.admin.vehicleForm.uploadMainImage}
-            </label>
-            <Input id="main_image" name="main_image" type="file" accept="image/*" />
-          </div>
-
-          <div>
-            <label htmlFor="gallery_images" className="mb-1 block text-xs uppercase tracking-[0.2em] text-softWhite/60">
-              {t.admin.vehicleForm.uploadGallery}
-            </label>
-            <Input id="gallery_images" name="gallery_images" type="file" accept="image/*" multiple />
-          </div>
+          <VehicleImageUploadFields
+            labels={{
+              uploadMainImage: t.admin.vehicleForm.uploadMainImage,
+              uploadGallery: t.admin.vehicleForm.uploadGallery,
+              uploadingImages: translateUiMessage("Uploading images...", locale),
+              imagesUploadedSaving: translateUiMessage("Images uploaded. Saving vehicle...", locale),
+              invalidType: translateUiMessage("Please upload JPG, PNG, WebP, or AVIF images.", locale),
+              tooLarge: translateUiMessage("Each vehicle image must be 12 MB or smaller.", locale),
+              prepareFailed: translateUiMessage("Unable to prepare image upload.", locale),
+              uploadFailed: translateUiMessage("Unable to upload images.", locale)
+            }}
+          />
 
           <div className="md:col-span-2">
             <label htmlFor="gallery_urls_text" className="mb-1 block text-xs uppercase tracking-[0.2em] text-softWhite/60">
