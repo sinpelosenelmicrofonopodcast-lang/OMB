@@ -120,25 +120,22 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto mt-24 max-w-7xl px-4 pb-10 md:px-8">
-        <SectionTitle eyebrow={t.home.testimonialsEyebrow} title={t.home.testimonialsTitle} />
-        <div className="grid gap-6 md:grid-cols-3">
-          {testimonials.map((item, index) => (
-            <Reveal key={item.id} delayMs={index * 90}>
-              <Card className="h-full">
-                <p className="text-gold">{"★".repeat(Math.max(1, Math.min(item.rating, 5)))}</p>
-                <p className="mt-4 text-sm leading-relaxed text-softWhite/75">“{item.quote}”</p>
-                <p className="mt-5 text-sm text-softWhite">{item.name}</p>
-              </Card>
-            </Reveal>
-          ))}
-          {testimonials.length === 0 ? (
-            <Card>
-              <p className="text-softWhite/70">{t.home.noTestimonials}</p>
-            </Card>
-          ) : null}
-        </div>
-      </section>
+      {testimonials.length > 0 ? (
+        <section className="mx-auto mt-24 max-w-7xl px-4 pb-10 md:px-8">
+          <SectionTitle eyebrow={t.home.testimonialsEyebrow} title={t.home.testimonialsTitle} />
+          <div className="grid gap-6 md:grid-cols-3">
+            {testimonials.map((item, index) => (
+              <Reveal key={item.id} delayMs={index * 90}>
+                <Card className="h-full">
+                  <p className="text-gold">{"★".repeat(Math.max(1, Math.min(item.rating, 5)))}</p>
+                  <p className="mt-4 text-sm leading-relaxed text-softWhite/75">“{item.quote}”</p>
+                  <p className="mt-5 text-sm text-softWhite">{item.name}</p>
+                </Card>
+              </Reveal>
+            ))}
+          </div>
+        </section>
+      ) : null}
     </div>
   );
 }
