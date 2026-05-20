@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
@@ -14,6 +15,62 @@ type PageProps = {
     slug: string;
   }>;
 };
+
+const fallbackVehicleImage = "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1400&q=80";
+
+function absoluteUrl(pathOrUrl: string) {
+  if (/^https?:\/\//i.test(pathOrUrl)) return pathOrUrl;
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.ombautosalesandservices.com";
+  return new URL(pathOrUrl, baseUrl).toString();
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const vehicle = await getVehicleBySlug(slug);
+
+  if (!vehicle) {
+    return {
+      title: "Vehicle Not Found | OMB AUTO SALES"
+    };
+  }
+
+  const imageUrl = absoluteUrl(vehicle.main_image_url || vehicle.gallery_urls?.[0] || fallbackVehicleImage);
+  const title = `${vehicle.title} | OMB AUTO SALES`;
+  const description = [
+    vehicle.year ? `${vehicle.year}` : null,
+    vehicle.make,
+    vehicle.model,
+    vehicle.price ? `$${vehicle.price.toLocaleString("en-US")}` : null
+  ]
+    .filter(Boolean)
+    .join(" · ");
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: absoluteUrl(`/inventory/${vehicle.slug}`),
+      siteName: "OMB AUTO SALES",
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: vehicle.title
+        }
+      ],
+      type: "website"
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [imageUrl]
+    }
+  };
+}
 
 export default async function VehicleDetailPage({ params }: PageProps) {
   const { slug } = await params;
@@ -40,22 +97,26 @@ export default async function VehicleDetailPage({ params }: PageProps) {
 
       <div className="mt-10 grid gap-8 lg:grid-cols-[1.5fr_1fr]">
         <div className="space-y-4">
-          <div className="relative h-[420px] overflow-hidden rounded-3xl border border-white/10 bg-charcoal">
+          <div className="relative aspect-[4/3] max-h-[78vh] min-h-[360px] overflow-hidden rounded-3xl border border-white/10 bg-black md:min-h-[560px]">
             <Image
-              src={
-                gallery[0] ||
-                "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1400&q=80"
-              }
+              src={gallery[0] || fallbackVehicleImage}
               alt={vehicle.title}
               fill
-              className="object-cover"
+              className="object-contain p-2"
+              sizes="(min-width: 1024px) 58vw, 100vw"
             />
           </div>
           {gallery.length > 1 ? (
             <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
               {gallery.slice(1).map((imageUrl, index) => (
-                <div key={`${imageUrl}-${index}`} className="relative h-28 overflow-hidden rounded-2xl border border-white/10">
-                  <Image src={imageUrl} alt={`${vehicle.title} ${index + 2}`} fill className="object-cover" />
+                <div key={`${imageUrl}-${index}`} className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/10 bg-black">
+                  <Image
+                    src={imageUrl}
+                    alt={`${vehicle.title} ${index + 2}`}
+                    fill
+                    className="object-contain p-1"
+                    sizes="(min-width: 768px) 18vw, 50vw"
+                  />
                 </div>
               ))}
             </div>

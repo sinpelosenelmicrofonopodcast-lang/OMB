@@ -25,7 +25,7 @@ export function VehicleCard({ vehicle, locale }: VehicleCardProps) {
   return (
     <Card className="overflow-hidden p-0">
       <Link href={`/inventory/${vehicle.slug}`} className="block">
-        <div className="relative h-56 w-full overflow-hidden">
+        <div className="relative aspect-[4/3] w-full overflow-hidden bg-black">
           <Image
             src={
               vehicle.main_image_url ||
@@ -33,7 +33,8 @@ export function VehicleCard({ vehicle, locale }: VehicleCardProps) {
             }
             alt={vehicle.title}
             fill
-            className="object-cover transition duration-500 hover:scale-105"
+            className="object-contain p-1 transition duration-500 hover:scale-[1.02]"
+            sizes="(min-width: 1024px) 31vw, (min-width: 768px) 48vw, 100vw"
           />
           <div className="absolute left-4 top-4 flex gap-2">
             <Badge tone={statusTone(vehicle.status)}>{translateStatus(vehicle.status, locale).toUpperCase()}</Badge>
