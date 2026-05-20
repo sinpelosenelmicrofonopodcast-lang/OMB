@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import type { Locale } from "@/lib/i18n/locale";
 import { getDictionary, translateStatus, translateUiMessage } from "@/lib/i18n/messages";
 import { VehicleImageUploadFields } from "@/components/admin/vehicle-image-upload-fields";
+import { VehiclePhotoManager } from "@/components/admin/vehicle-photo-manager";
 
 type VehicleFormProps = {
   title: string;
@@ -156,6 +157,10 @@ export function VehicleForm({ title, submitLabel, action, vehicle, message, loca
               uploadFailed: translateUiMessage("Unable to upload images.", locale)
             }}
           />
+
+          {vehicle ? (
+            <VehiclePhotoManager mainImageUrl={vehicle.main_image_url} galleryUrls={vehicle.gallery_urls ?? []} locale={locale} />
+          ) : null}
 
           <div className="md:col-span-2">
             <label htmlFor="gallery_urls_text" className="mb-1 block text-xs uppercase tracking-[0.2em] text-softWhite/60">

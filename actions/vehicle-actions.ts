@@ -143,6 +143,31 @@ function getFiles(formData: FormData, key: string) {
   return formData.getAll(key).filter((entry): entry is File => entry instanceof File && entry.size > 0);
 }
 
+function getTextList(formData: FormData, key: string) {
+  return formData.getAll(key).filter((entry): entry is string => typeof entry === "string" && entry.trim().length > 0);
+}
+
+function getVehicleImageStoragePath(url: string) {
+  try {
+    const parsed = new URL(url);
+    const marker = `/storage/v1/object/public/${BUCKET_NAME}/`;
+    const index = parsed.pathname.indexOf(marker);
+    if (index === -1) return null;
+    return decodeURIComponent(parsed.pathname.slice(index + marker.length));
+  } catch {
+    return null;
+  }
+}
+
+async function removeVehicleImageUrls(
+  supabase: Awaited<ReturnType<typeof ensureAdmin>>["supabase"],
+  urls: Iterable<string>
+) {
+  const paths = Array.from(new Set(Array.from(urls).map(getVehicleImageStoragePath).filter((path): path is string => Boolean(path))));
+  if (paths.length === 0) return;
+  await supabase.storage.from(BUCKET_NAME).remove(paths);
+}
+
 function revalidateVehiclePaths(slug?: string | null) {
   revalidatePath("/");
   revalidatePath("/inventory");
@@ -219,6 +244,8 @@ export async function updateVehicleAction(formData: FormData) {
     const { supabase } = await ensureAdmin();
     const payload = parseVehiclePayload(formData);
     const existingSlug = getText(formData, "existing_slug");
+    const removedImageUrls = new Set(getTextList(formData, "remove_image_url"));
+    const selectedMainImageUrl = getText(formData, "selected_main_image_url");
     const { data: existingVehicle, error: existingVehicleError } = await supabase
       .from("vehicles")
       .select("gallery_urls, main_image_url")
@@ -238,9 +265,26 @@ export async function updateVehicleAction(formData: FormData) {
       galleryUploads.map((file, index) => uploadVehicleImage(supabase, vehicleId, file, `gallery-${index + 1}`))
     );
 
-    const galleryUrls = Array.from(
-      new Set([...(existingVehicle?.gallery_urls ?? []), ...payload.manualGalleryUrls, ...uploadedGalleryUrls])
+    const existingGalleryUrls = existingVehicle?.gallery_urls ?? [];
+    const allKnownImageUrls = new Set([existingVehicle?.main_image_url, ...existingGalleryUrls, ...payload.manualGalleryUrls].filter(Boolean) as string[]);
+    const selectedMainFromExisting =
+      selectedMainImageUrl && allKnownImageUrls.has(selectedMainImageUrl) && !removedImageUrls.has(selectedMainImageUrl)
+        ? selectedMainImageUrl
+        : null;
+    const nextMainImageUrl =
+      uploadedMainUrl ??
+      selectedMainFromExisting ??
+      (payload.mainImageUrl && !removedImageUrls.has(payload.mainImageUrl) ? payload.mainImageUrl : null) ??
+      (existingVehicle?.main_image_url && !removedImageUrls.has(existingVehicle.main_image_url) ? existingVehicle.main_image_url : null);
+    let galleryUrls = Array.from(
+      new Set(
+        [...existingGalleryUrls, ...payload.manualGalleryUrls, ...uploadedGalleryUrls].filter(
+          (url) => url && !removedImageUrls.has(url) && url !== nextMainImageUrl
+        )
+      )
     );
+
+    const finalMainImageUrl = nextMainImageUrl ?? galleryUrls.shift() ?? null;
 
     const { error } = await supabase
       .from("vehicles")
@@ -263,13 +307,14 @@ export async function updateVehicleAction(formData: FormData) {
         fuel_type: payload.fuelType,
         description: payload.description,
         highlights: payload.highlights,
-        main_image_url: uploadedMainUrl ?? payload.mainImageUrl ?? existingVehicle?.main_image_url ?? null,
+        main_image_url: finalMainImageUrl,
         gallery_urls: galleryUrls,
         specs: payload.specs
       })
       .eq("id", vehicleId);
 
     if (error) throw error;
+    await removeVehicleImageUrls(supabase, removedImageUrls);
 
     revalidateVehiclePaths(slug);
     redirect(`/admin/inventory/${vehicleId}/edit?message=${encodeURIComponent("Vehicle updated")}`);
