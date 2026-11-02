@@ -4,6 +4,7 @@ import "./globals.css";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { getLocale } from "@/lib/i18n/server-locale";
+import { getPublicSiteSettings } from "@/lib/db/site-settings";
 
 const heading = Playfair_Display({
   variable: "--font-heading",
@@ -31,6 +32,21 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description,
+    metadataBase: new URL("https://www.ombautosalesandservices.com"),
+    alternates: { canonical: "/" },
+    openGraph: {
+      title,
+      description,
+      url: "https://www.ombautosalesandservices.com",
+      siteName: "OMB Auto Sales & Services",
+      locale: locale === "es" ? "es_US" : "en_US",
+      type: "website"
+    },
+    robots: { index: true, follow: true },
+    keywords: [
+      "used cars Killeen TX", "car dealership Killeen TX", "used car dealer Killeen",
+      "OMB Auto Sales", "carros usados en Killeen Texas", "autos for sale Killeen"
+    ],
     icons: {
       icon: [
         { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
@@ -49,10 +65,36 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const locale = await getLocale();
+  const settings = await getPublicSiteSettings(locale);
+  const localBusiness = {
+    "@context": "https://schema.org",
+    "@type": "AutoDealer",
+    "@id": "https://www.ombautosalesandservices.com/#dealer",
+    name: settings.business_name,
+    url: "https://www.ombautosalesandservices.com",
+    telephone: settings.phone,
+    image: "https://www.ombautosalesandservices.com/omb-auto-sales-logo.png",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "710 W Veterans Memorial Blvd",
+      addressLocality: "Killeen",
+      addressRegion: "TX",
+      postalCode: "76541",
+      addressCountry: "US"
+    },
+    areaServed: [
+      { "@type": "City", name: "Killeen" },
+      { "@type": "City", name: "Harker Heights" },
+      { "@type": "City", name: "Copperas Cove" },
+      { "@type": "City", name: "Fort Cavazos" }
+    ],
+    hasMap: "https://www.google.com/maps/search/?api=1&query=710+W+Veterans+Memorial+Blvd+Killeen+TX+76541"
+  };
 
   return (
     <html lang={locale} className={`${heading.variable} ${body.variable}`}>
       <body>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusiness).replace(/</g, "\\u003c") }} />
         <SiteHeader />
         <main>{children}</main>
         <SiteFooter />

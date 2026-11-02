@@ -30,6 +30,20 @@ export default async function AdminInventoryPage({ searchParams }: PageProps) {
   const locale = await getLocale();
   const t = getDictionary(locale);
   const inventory = await getInventory({ includeUnpublished: true, sort: "newest", search });
+  const selectedStatus = first(resolvedSearchParams.status) ?? "all";
+  const statuses = ["all", "available", "pending", "sold", "draft"] as const;
+  const statusCounts = {
+    all: inventory.vehicles.length,
+    available: inventory.vehicles.filter((vehicle) => vehicle.status === "available").length,
+    pending: inventory.vehicles.filter((vehicle) => vehicle.status === "pending").length,
+    sold: inventory.vehicles.filter((vehicle) => vehicle.status === "sold").length,
+    draft: inventory.vehicles.filter((vehicle) => !vehicle.published).length
+  };
+  const visibleVehicles = inventory.vehicles.filter((vehicle) =>
+    selectedStatus === "draft"
+      ? !vehicle.published
+      : selectedStatus === "all" || vehicle.status === selectedStatus
+  );
 
   return (
     <div className="space-y-5">
@@ -69,6 +83,32 @@ export default async function AdminInventoryPage({ searchParams }: PageProps) {
         </button>
       </form>
 
+      <nav aria-label={locale === "es" ? "Filtrar inventario" : "Filter inventory"} className="flex flex-wrap gap-2">
+        {statuses.map((status) => (
+          <Link
+            key={status}
+            href={`/admin/inventory?${new URLSearchParams({
+              ...(search ? { search } : {}),
+              ...(status !== "all" ? { status } : {})
+            }).toString()}`}
+            className={`rounded-xl border px-3 py-2 text-sm transition ${
+              selectedStatus === status
+                ? "border-gold bg-gold/15 text-gold"
+                : "border-white/15 text-softWhite/70 hover:border-gold/50"
+            }`}
+          >
+            {status === "all"
+              ? locale === "es" ? "Todos" : "All"
+              : status === "draft"
+                ? locale === "es" ? "Sin publicar" : "Unpublished"
+                : translateStatus(status, locale)} ({statusCounts[status]})
+          </Link>
+        ))}
+      </nav>
+      <p className="text-sm text-softWhite/60">
+        {locale === "es" ? "Mostrando" : "Showing"} {visibleVehicles.length} {locale === "es" ? "vehículos" : "vehicles"}
+      </p>
+
       <div className="panel overflow-x-auto">
         <table className="w-full min-w-[980px] text-left text-sm">
           <thead className="text-softWhite/60">
@@ -83,18 +123,23 @@ export default async function AdminInventoryPage({ searchParams }: PageProps) {
             </tr>
           </thead>
           <tbody>
-            {inventory.vehicles.map((vehicle) => (
+            {visibleVehicles.map((vehicle) => (
               <tr key={vehicle.id} className="border-b border-white/5 align-top text-softWhite/85">
                 <td className="py-3">
                   <Link href={`/admin/inventory/${vehicle.id}/edit`} className="font-medium hover:text-gold">
                     {vehicle.title}
                   </Link>
-                  <p className="text-xs text-softWhite/45">/{vehicle.slug}</p>
+                  <p className="text-xs text-softWhite/45">{vehicle.year ?? ""} {vehicle.make ?? ""} {vehicle.model ?? ""}</p>
+                  <a href={`/inventory/${vehicle.slug}`} target="_blank" rel="noopener noreferrer" className="text-xs text-cyan hover:underline">
+                    {locale === "es" ? "Ver anuncio" : "View listing"}
+                  </a>
                 </td>
                 <td className="py-3">{formatCurrency(vehicle.price, locale)}</td>
                 <td className="py-3 capitalize">{translateStatus(vehicle.status, locale)}</td>
                 <td className="py-3">{vehicle.featured ? t.common.yes : t.common.no}</td>
-                <td className="py-3">{vehicle.published ? t.common.yes : t.common.no}</td>
+                <td className="py-3"><span className={vehicle.published ? "text-emerald-300" : "text-amber-300"}>
+                  {vehicle.published ? (locale === "es" ? "En línea" : "Live") : (locale === "es" ? "Borrador" : "Draft")}
+                </span></td>
                 <td className="py-3">{new Date(vehicle.updated_at).toLocaleDateString(toIntlLocale(locale))}</td>
                 <td className="py-3">
                   <div className="flex flex-wrap gap-2">
@@ -183,7 +228,7 @@ export default async function AdminInventoryPage({ searchParams }: PageProps) {
           </tbody>
         </table>
 
-        {inventory.vehicles.length === 0 ? (
+        {visibleVehicles.length === 0 ? (
           <p className="py-4 text-sm text-softWhite/60">{t.admin.inventory.noVehicles}</p>
         ) : null}
       </div>
