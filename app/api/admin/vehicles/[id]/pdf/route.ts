@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { parseLocale } from "@/lib/i18n/locale";
 import { createClient } from "@/lib/supabase/server";
 import { generateVehicleSheetPdf } from "@/lib/pdf/vehicle-sheet";
+import { getVehicleById } from "@/lib/db/vehicles";
 
 export const dynamic = "force-dynamic";
 
@@ -42,15 +43,7 @@ export async function GET(request: Request, { params }: RouteContext) {
     return NextResponse.json({ message: "Forbidden" }, { status: 403 });
   }
 
-  const { data: vehicle, error: vehicleError } = await supabase
-    .from("vehicles")
-    .select("*")
-    .eq("id", id)
-    .maybeSingle();
-
-  if (vehicleError) {
-    return NextResponse.json({ message: "Unable to load vehicle" }, { status: 500 });
-  }
+  const vehicle = await getVehicleById(id);
 
   if (!vehicle) {
     return NextResponse.json({ message: "Vehicle not found" }, { status: 404 });

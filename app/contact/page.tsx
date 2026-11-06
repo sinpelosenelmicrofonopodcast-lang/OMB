@@ -75,6 +75,7 @@ export default async function ContactPage({ searchParams }: PageProps) {
 
           <form action={createLeadAction} className="space-y-4">
             <input type="hidden" name="vehicle_id" value={vehicle?.id ?? ""} />
+            <input type="hidden" name="vehicle_title" value={vehicle?.title ?? ""} />
             <div>
               <label htmlFor="name" className="mb-1 block text-xs uppercase tracking-[0.2em] text-softWhite/60">
                 {t.contact.name}

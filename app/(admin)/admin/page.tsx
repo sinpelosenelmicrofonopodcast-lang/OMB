@@ -60,7 +60,7 @@ export default async function AdminDashboardPage({ searchParams }: PageProps) {
               {latestVehicles.map((vehicle) => (
                 <tr key={vehicle.id} className="border-b border-white/5 text-softWhite/85">
                   <td className="py-3">
-                    <Link href={`/admin/inventory/${vehicle.id}/edit`} className="hover:text-gold">
+                    <Link href={`/inventory/${vehicle.slug}`} className="hover:text-gold">
                       {vehicle.title}
                     </Link>
                   </td>
